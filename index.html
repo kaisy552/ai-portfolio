@@ -104,17 +104,20 @@
   .card.accent-b { border-top:2px solid var(--accent2); }
   .card.accent-c { border-top:2px solid var(--accent3); }
   .card.accent-d { border-top:2px solid var(--accent4); }
-  .card-media { position:relative; flex:1; overflow:hidden; background:#0a0a0a; cursor:pointer; min-height:0; }
-  .card-media video { width:100%; height:100%; object-fit:cover; display:block; background:#0a0a0a; user-select:none; -webkit-user-select:none; pointer-events:auto; }
-  .card-media .overlay { position:absolute; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .35s ease; }
+  .card-media { position:relative; flex:1; overflow:hidden; cursor:pointer; min-height:0; aspect-ratio:16/9; }
+  .card-media video { width:100%; height:100%; object-fit:cover; display:block; background:#0a0a0a; user-select:none; -webkit-user-select:none; }
+  .card-placeholder { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0a0a0f 0%, #151525 50%, #0a0a10 100%); transition:opacity .3s ease; }
+  .card-placeholder .ph-icon { font-size:34px; opacity:.25; }
+  .card-placeholder.hide { opacity:0; pointer-events:none; }
+  .card-media .overlay { position:absolute; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .35s ease; z-index:3; }
   .card-media:hover .overlay { opacity:1; }
   .play-btn {
-    width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.1);
+    width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,.12);
     backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center;
-    font-size:18px; color:#fff; transition:transform .35s ease, background .35s ease;
+    border:1px solid rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center;
+    font-size:17px; color:#fff; transition:transform .35s ease, background .35s ease;
   }
-  .card-media:hover .play-btn { transform:scale(1.08); background:rgba(255,255,255,.18); }
+  .card-media:hover .play-btn { transform:scale(1.08); background:rgba(255,255,255,.2); }
   .card-body { padding:18px 22px 20px; flex-shrink:0; }
   .card-body .title { font-size:15px; font-weight:600; margin-bottom:4px; letter-spacing:-0.01em; color:#fff; }
   .card-body .desc { font-size:13px; color:var(--muted); line-height:1.5; }
@@ -288,7 +291,7 @@ function render() {
     const accent = accents[i % accents.length];
     return `<div class="card ${accent} reveal" style="transition-delay:${i*60}ms">
       <div class="card-media" onclick="openLightbox('${v.file}','${v.en}')">
-        <video src="${v.file}" preload="metadata" muted playsinline disablePictureInPicture oncontextmenu="return false" controlsList="nodownload" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="card-placeholder"><span class="ph-icon">▶</span></div>
         <div class="overlay"><div class="play-btn">▶</div></div>
       </div>
       <div class="card-body">
@@ -297,6 +300,33 @@ function render() {
       </div>
     </div>`;
   }).join('');
+  // Lazy load videos on scroll
+  setTimeout(() => {
+    const vidObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const media = e.target.querySelector('.card-media');
+          const idx = Array.from(e.target.parentElement.children).indexOf(e.target);
+          if (idx >= 0 && idx < videos.length && media && !media.querySelector('video')) {
+            const vid = document.createElement('video');
+            vid.src = videos[idx].file;
+            vid.muted = true; vid.playsInline = true; vid.disablePictureInPicture = true;
+            vid.setAttribute('controlsList','nodownload');
+            vid.setAttribute('oncontextmenu','return false');
+            vid.addEventListener('loadeddata', () => {
+              const ph = media.querySelector('.card-placeholder');
+              if (ph) ph.classList.add('hide');
+            });
+            vid.addEventListener('mouseenter', () => vid.play());
+            vid.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+            media.insertBefore(vid, media.firstChild);
+          }
+          vidObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '200px' });
+    document.querySelectorAll('.card').forEach(c => vidObserver.observe(c));
+  }, 200);
   // Trigger reveal on load
   setTimeout(observeReveal, 100);
 }
