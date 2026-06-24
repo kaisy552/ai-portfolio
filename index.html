@@ -3,452 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 视频作品集 | Deng Lijun</title>
+<title>AI 作品集 | 邓丽君</title>
 <style>
   :root {
-    --bg: #060608;
-    --card-bg: #0d0d14;
-    --border: #1a1a2a;
-    --text: #e4e4e7;
-    --muted: #71717a;
+    --bg: #000;
+    --surface: rgba(255,255,255,.04);
+    --border: rgba(255,255,255,.08);
+    --text: #f5f5f7;
+    --muted: #98989e;
     --accent: #a78bfa;
     --accent2: #60a5fa;
     --accent3: #f472b6;
     --accent4: #34d399;
+    --r: 20px;
+    --r-lg: 24px;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms!important; transition-duration:0.01ms!important; }
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif;
-    line-height: 1.6;
+    font-family: -apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Noto Sans SC",sans-serif;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
   }
-  .container { max-width: 1320px; margin: 0 auto; padding: 0 28px; }
+  .container { max-width:1160px; margin:0 auto; padding:0 32px; }
 
   /* Header */
-  header {
-    padding: 72px 0 40px;
-    text-align: center;
+  header { padding:100px 0 56px; text-align:center; }
+  header h1 { font-size:42px; font-weight:600; letter-spacing:-0.02em; margin-bottom:24px; color:#fff; }
+  header h1 span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .info-card {
+    display:inline-block; text-align:center; padding:28px 44px;
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--r-lg); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px);
+    line-height:2;
   }
-  header h1 {
-    font-size: 38px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 20px;
-  }
-  header h1 span {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  header .info-card {
-    display: inline-block;
-    text-align: center;
-    padding: 22px 36px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    line-height: 1.9;
-  }
-  header .info-card .name {
-    font-size: 17px;
-    font-weight: 600;
-    color: #fff;
-  }
-  header .info-card p {
-    font-size: 14px;
-    color: #a1a1aa;
-    margin: 0;
-  }
-  header .info-card p em { color: #c4c4cc; font-style: normal; }
+  .info-card .name { font-size:17px; font-weight:600; color:#fff; }
+  .info-card p { font-size:14px; color:var(--muted); }
+  .info-card p em { color:#c9c9cf; font-style:normal; }
 
-  /* ===== Workflow Section ===== */
-  .workflow-section {
-    max-width: 880px;
-    margin: 0 auto 56px;
-    padding: 36px 40px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 18px;
+  /* Sections */
+  .section {
+    max-width:860px; margin:0 auto 64px; padding:44px 48px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-lg); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px);
   }
-  .workflow-section h2 {
-    font-size: 22px;
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  .workflow-section h2 span { color: var(--accent); }
-  .workflow-section .wf-sub {
-    text-align: center;
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 32px;
-  }
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
+  .section h2 { font-size:24px; font-weight:600; letter-spacing:-0.02em; margin-bottom:10px; text-align:center; color:#fff; }
+  .section h2 span { color:var(--accent2); }
+  .section .sub { text-align:center; color:var(--muted); font-size:14px; margin-bottom:40px; line-height:1.7; max-width:600px; margin-left:auto; margin-right:auto; }
+
+  /* Steps */
+  .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
   .step {
-    text-align: center;
-    padding: 20px 14px;
-    background: #08080f;
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    text-align:center; padding:24px 16px; background:rgba(255,255,255,.03);
+    border:1px solid var(--border); border-radius:var(--r);
   }
-  .step .step-num {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .step:nth-child(1) .step-num { background: rgba(167,139,250,.2); color: var(--accent); }
-  .step:nth-child(2) .step-num { background: rgba(96,165,250,.2); color: var(--accent2); }
-  .step:nth-child(3) .step-num { background: rgba(244,114,182,.2); color: var(--accent3); }
-  .step:nth-child(4) .step-num { background: rgba(52,211,153,.2); color: var(--accent4); }
-  .step .step-icon { font-size: 24px; margin-bottom: 6px; }
-  .step h4 { font-size: 14px; margin-bottom: 6px; }
-  .step p { font-size: 12px; color: var(--muted); line-height: 1.6; }
-  .step .tool-tag {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 10px;
-    background: rgba(255,255,255,.04);
-    color: #52525b;
-  }
+  .step .num { width:30px; height:30px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; margin-bottom:12px; }
+  .step:nth-child(1) .num { background:rgba(167,139,250,.15); color:var(--accent); }
+  .step:nth-child(2) .num { background:rgba(96,165,250,.15); color:var(--accent2); }
+  .step:nth-child(3) .num { background:rgba(244,114,182,.15); color:var(--accent3); }
+  .step:nth-child(4) .num { background:rgba(52,211,153,.15); color:var(--accent4); }
+  .step .icon { font-size:22px; margin-bottom:8px; }
+  .step h4 { font-size:14px; font-weight:600; margin-bottom:6px; color:#fff; }
+  .step p { font-size:12px; color:var(--muted); line-height:1.6; }
+  .step .tag { display:inline-block; margin-top:10px; font-size:10px; padding:4px 10px; border-radius:20px; background:rgba(255,255,255,.04); color:#86868b; font-weight:500; }
+  @media(max-width:768px){ .steps{grid-template-columns:1fr 1fr;} }
+  @media(max-width:440px){ .steps{grid-template-columns:1fr;} }
 
-  /* Arrow between steps */
-  .step-arrow {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    .steps { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 440px) {
-    .steps { grid-template-columns: 1fr; }
-  }
-
-  /* ===== Grid ===== */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 24px;
-    padding-bottom: 80px;
-  }
-  @media (max-width: 440px) {
-    .grid { grid-template-columns: 1fr; }
-    header h1 { font-size: 28px; }
-  }
+  /* Grid */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:28px; padding-bottom:100px; }
+  @media(max-width:440px){ .grid{grid-template-columns:1fr; gap:20px;} header h1{font-size:30px;} }
 
   /* Card */
   .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: transform .3s, border-color .3s, box-shadow .3s;
-    position: relative;
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--r);
+    overflow:hidden; backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px);
+    transition: transform .4s cubic-bezier(.25,.1,.25,1), border-color .4s ease, box-shadow .4s ease;
   }
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: #3f3f5c;
-    box-shadow: 0 16px 48px rgba(0,0,0,.5);
+  .card:hover { transform:translateY(-4px); border-color:rgba(255,255,255,.14); box-shadow:0 20px 60px rgba(0,0,0,.5); }
+  .card:focus-within { outline:2px solid var(--accent2); outline-offset:4px; border-radius:calc(var(--r) + 4px); }
+  .card.accent-a { border-top:2px solid var(--accent); }
+  .card.accent-b { border-top:2px solid var(--accent2); }
+  .card.accent-c { border-top:2px solid var(--accent3); }
+  .card.accent-d { border-top:2px solid var(--accent4); }
+  .card-media { position:relative; aspect-ratio:16/9; overflow:hidden; background:#0a0a0a; cursor:pointer; }
+  .card-media video { width:100%; height:100%; object-fit:cover; display:block; background:#0a0a0a; }
+  .card-media .overlay { position:absolute; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .35s ease; }
+  .card-media:hover .overlay { opacity:1; }
+  .play-btn {
+    width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,.1);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:#fff; transition:transform .3s ease, background .3s ease;
   }
-  .card.accent-a { border-top: 3px solid var(--accent); }
-  .card.accent-b { border-top: 3px solid var(--accent2); }
-  .card.accent-c { border-top: 3px solid var(--accent3); }
-  .card.accent-d { border-top: 3px solid var(--accent4); }
+  .card-media:hover .play-btn { transform:scale(1.08); background:rgba(255,255,255,.18); }
+  .card-body { padding:20px 22px 22px; }
+  .card-body .title { font-size:15px; font-weight:600; margin-bottom:4px; letter-spacing:-0.01em; color:#fff; }
+  .card-body .desc { font-size:13px; color:var(--muted); line-height:1.5; }
 
-  .card-media {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0d0d1a 0%, #16162e 50%, #0d0d1a 100%);
-    cursor: pointer;
-  }
-  .card-media::before {
-    content: "";
-    position: absolute; inset: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.03) 50%, transparent 100%);
-    animation: shimmer 2.5s infinite;
-    z-index: 0;
-    pointer-events: none;
-  }
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-  .card-media video {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    background: linear-gradient(135deg, #0d0d1a 0%, #12122a 50%, #0d0d1a 100%);
-  }
-  .card-media video::-webkit-media-controls-panel { display: none; }
-  .card-media .overlay {
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,.5);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity .3s;
-  }
-  .card-media:hover .overlay { opacity: 1; }
-  .card-media .play-btn {
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.12);
-    border: 1.5px solid rgba(255,255,255,.25);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; color: #fff;
-    backdrop-filter: blur(6px);
-    transition: transform .2s, background .2s;
-  }
-  .card-media:hover .play-btn { transform: scale(1.1); background: rgba(255,255,255,.22); }
-
-  .card-body {
-    padding: 16px 18px 18px;
-  }
-  .card-body .title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    letter-spacing: -0.2px;
-  }
-  .card-body .desc {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  /* ===== CTA ===== */
+  /* CTA */
   .cta-block {
-    max-width: 720px;
-    margin: 0 auto 80px;
-    padding: 32px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    text-align: center;
+    max-width:720px; margin:0 auto 100px; padding:44px 48px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--r-lg); text-align:center;
+    backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px);
   }
-  .cta-block h3 { font-size: 18px; margin-bottom: 8px; }
-  .cta-block p { color: var(--muted); font-size: 14px; line-height: 1.7; }
-  .cta-block p strong { color: var(--text); }
+  .cta-block h3 { font-size:20px; font-weight:600; margin-bottom:12px; color:#fff; letter-spacing:-0.01em; }
+  .cta-block p { color:var(--muted); font-size:14px; line-height:1.8; }
 
   /* Footer */
-  footer {
-    text-align: center;
-    padding: 20px 0 60px;
-    color: #404050;
-    font-size: 13px;
-  }
-  footer span { color: var(--accent); }
+  footer { text-align:center; padding:20px 0 60px; color:#48484e; font-size:13px; font-weight:500; }
+  footer span { color:var(--accent); }
 
   /* Lightbox */
-  .lightbox {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.92);
-    z-index: 1000;
-    align-items: center; justify-content: center;
-    flex-direction: column;
-  }
-  .lightbox.show { display: flex; }
-  .lightbox video {
-    max-width: 92vw; max-height: 80vh;
-    border-radius: 10px;
-    box-shadow: 0 24px 64px rgba(0,0,0,.7);
-  }
-  .lightbox .lb-title {
-    color: #fff; font-size: 15px; margin-bottom: 10px; opacity: .8;
-  }
-  .lightbox .close {
-    position: absolute; top: 24px; right: 32px;
-    font-size: 30px; color: #fff; cursor: pointer;
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%;
-    background: rgba(255,255,255,.06);
-    border: none;
-    transition: background .2s;
-  }
-  .lightbox .close:hover { background: rgba(255,255,255,.18); }
+  .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.94); z-index:1000; align-items:center; justify-content:center; flex-direction:column; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+  .lightbox.show { display:flex; }
+  .lightbox video { max-width:92vw; max-height:80vh; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,.8); }
+  .lightbox .lb-title { color:#fff; font-size:15px; font-weight:500; margin-bottom:12px; opacity:.8; }
+  .lightbox .close { position:absolute; top:24px; right:36px; font-size:28px; color:#fff; cursor:pointer; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,.06); border:none; transition:background .25s ease; font-weight:300; }
+  .lightbox .close:hover { background:rgba(255,255,255,.15); }
+  .lightbox .close:focus-visible { outline:2px solid #fff; outline-offset:2px; }
 
-  /* ===== Skill 演示 ===== */
-  .demo-section {
-    max-width: 880px;
-    margin: 0 auto 56px;
-    padding: 40px 44px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-  }
-  .demo-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
-  .demo-top h2 { font-size: 22px; }
-  .demo-top h2 span { color: var(--accent2); }
+  /* Demo */
+  .demo-top { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:36px; flex-wrap:wrap; }
+  .demo-top h2 { font-size:22px; font-weight:600; letter-spacing:-0.02em; color:#fff; }
+  .demo-top h2 span { color:var(--accent2); }
   .demo-top button {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 10px 26px;
-    border-radius: 24px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all .25s;
-    white-space: nowrap;
+    background:rgba(255,255,255,.06); border:1px solid var(--border); color:#fff;
+    padding:10px 24px; border-radius:24px; font-size:13px; font-weight:500;
+    cursor:pointer; transition:all .25s ease; white-space:nowrap; letter-spacing:-0.01em;
   }
-  .demo-top button:hover {
-    border-color: var(--accent2);
-    color: var(--accent2);
-    background: rgba(96,165,250,.06);
-  }
-  .demo-top button.running { opacity: .4; pointer-events: none; }
+  .demo-top button:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.15); }
+  .demo-top button.running { opacity:.4; pointer-events:none; }
+  .demo-top button:focus-visible { outline:2px solid var(--accent2); outline-offset:2px; }
 
-  /* Progress timeline */
-  .demo-timeline {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 28px;
-    position: relative;
-    gap: 4px;
-  }
-  .demo-timeline::before {
-    content: "";
-    position: absolute;
-    top: 20px; left: 28px; right: 28px;
-    height: 1px;
-    background: var(--border);
-    z-index: 0;
-  }
-  .demo-step {
-    text-align: center;
-    flex: 1;
-    position: relative;
-    z-index: 1;
-    min-width: 0;
-  }
+  .demo-timeline { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:32px; gap:4px; }
+  .demo-step { text-align:center; flex:1; min-width:0; }
   .demo-step .dot {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: #08080f;
-    border: 2px solid var(--border);
-    margin: 0 auto 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    transition: all .5s cubic-bezier(.4,0,.2,1);
-    position: relative;
+    width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.04);
+    border:2px solid var(--border); margin:0 auto 10px;
+    display:flex; align-items:center; justify-content:center; font-size:17px;
+    transition:all .4s cubic-bezier(.25,.1,.25,1);
   }
-  .demo-step.active .dot {
-    border-color: var(--accent2);
-    background: rgba(96,165,250,.1);
-    box-shadow: 0 0 24px rgba(96,165,250,.2);
-    transform: scale(1.12);
-  }
-  .demo-step.done .dot {
-    border-color: var(--accent4);
-    background: rgba(52,211,153,.1);
-  }
-  .demo-step.done .dot::after {
-    content: "✓";
-    position: absolute;
-    font-size: 11px;
-    color: var(--accent4);
-    font-weight: 700;
-  }
-  .demo-step .step-label {
-    font-size: 12px;
-    color: var(--muted);
-    transition: color .4s;
-  }
-  .demo-step.active .step-label { color: var(--accent2); }
-  .demo-step.done .step-label { color: var(--accent4); }
+  .demo-step.active .dot { border-color:var(--accent2); background:rgba(96,165,250,.1); box-shadow:0 0 32px rgba(96,165,250,.2); transform:scale(1.1); }
+  .demo-step.done .dot { border-color:var(--accent4); background:rgba(52,211,153,.08); }
+  .demo-step .step-label { font-size:12px; color:var(--muted); font-weight:500; transition:color .4s ease; }
+  .demo-step.active .step-label { color:var(--accent2); }
+  .demo-step.done .step-label { color:var(--accent4); }
 
-  /* Terminal */
   .demo-terminal {
-    background: #020206;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 22px;
-    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
-    font-size: 12.5px;
-    line-height: 1.9;
-    color: #a1a1aa;
-    min-height: 100px;
-    position: relative;
-    overflow: hidden;
+    background:rgba(0,0,0,.5); border:1px solid var(--border); border-radius:var(--r);
+    padding:22px 24px; font-family:"SF Mono","Cascadia Code","Consolas",monospace;
+    font-size:12.5px; line-height:2; color:#a1a1aa; min-height:80px; overflow:hidden;
   }
-  .demo-terminal .line {
-    opacity: 0;
-    transform: translateY(6px);
-    transition: all .35s ease;
-  }
-  .demo-terminal .line.show { opacity: 1; transform: translateY(0); }
-  .demo-terminal .prompt { color: var(--accent2); }
-  .demo-terminal .cmd  { color: var(--text); }
-  .demo-terminal .out  { color: #52525b; }
-  .demo-terminal .highlight { color: var(--accent4); }
+  .demo-terminal .line { opacity:0; transform:translateY(6px); transition:all .35s ease; }
+  .demo-terminal .line.show { opacity:1; transform:translateY(0); }
+  .demo-terminal .prompt { color:var(--accent2); }
+  .demo-terminal .cmd { color:var(--text); }
+  .demo-terminal .out { color:#86868b; }
+  .demo-terminal .highlight { color:var(--accent4); }
 
-  /* Compare cards */
-  .demo-compare {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 20px;
+  .demo-compare { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:22px; }
+  .demo-compare .box { background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:var(--r); padding:20px 22px; opacity:0; transform:translateY(10px); transition:all .5s ease; }
+  .demo-compare .box.show { opacity:1; transform:translateY(0); }
+  .demo-compare .box .box-label { font-size:11px; margin-bottom:10px; display:flex; align-items:center; gap:6px; font-weight:600; }
+  .demo-compare .box.old .box-label { color:#f87171; }
+  .demo-compare .box.new .box-label { color:var(--accent4); }
+  .demo-compare .box .box-text { font-size:13px; line-height:1.7; color:var(--muted); }
+  .demo-compare .box.new .box-text { color:#c9c9cf; }
+  @media(max-width:600px){
+    .demo-timeline{flex-wrap:wrap; gap:12px;}
+    .demo-step{flex:1 1 40%;}
+    .demo-compare{grid-template-columns:1fr;}
+    .section, .cta-block{padding:28px 24px;}
   }
-  .demo-compare .box {
-    background: #08080f;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: all .5s ease;
-  }
-  .demo-compare .box.show { opacity: 1; transform: translateY(0); }
-  .demo-compare .box .box-label {
-    font-size: 11px; margin-bottom: 10px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .demo-compare .box.old .box-label { color: #f87171; }
-  .demo-compare .box.new .box-label { color: var(--accent4); }
-  .demo-compare .box .box-text {
-    font-size: 13px; line-height: 1.7;
-    color: #a1a1aa; font-style: italic;
-  }
-  .demo-compare .box.new .box-text { color: #d4d4d8; }
-  .box-arrow {
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; color: var(--accent4);
-    margin: 8px 0;
-  }
-  @media (max-width: 600px) {
-    .demo-timeline { flex-wrap: wrap; gap: 12px; }
-    .demo-timeline::before { display: none; }
-    .demo-step { flex: 1 1 40%; }
-    .demo-compare { grid-template-columns: 1fr; }
-    .demo-section { padding: 24px 20px; }
-  }
+
+  /* Global */
+  button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline:2px solid var(--accent2); outline-offset:2px; border-radius:4px; }
+  ::selection { background:rgba(167,139,250,.3); }
 </style>
 </head>
 <body>
 
 <header class="container">
-  <h1>AI Video <span>Portfolio</span></h1>
+  <h1>AI <span>Portfolio</span></h1>
   <div class="info-card">
     <p class="name">邓丽君 · 产品运营 · 26届 · 广西民族大学应用心理学</p>
     <p>积极拥抱 AI，持续关注国内外 AI 产品动态与技术趋势</p>
@@ -457,58 +199,29 @@
   </div>
 </header>
 
-<!-- ====== 问题 + 解法 ====== -->
-<div class="workflow-section container">
+<div class="section container">
   <h2>为什么要建<span>这套系统</span></h2>
-  <p class="wf-sub">做运营经常需要生图生视频，但 AI 直接生成的效果往往缺少吸引力，跟竞品一比差距明显。于是我开始找方法——能不能让 AI 产出的内容，对标竞品甚至更好？</p>
+  <p class="sub">做运营经常需要生图生视频，但 AI 直接生成的效果往往不够出彩，跟竞品一比差距明显。于是我开始找方法——能不能让 AI 产出的内容，对标竞品甚至更好？</p>
   <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-icon">🕷️</div>
-      <h4>抓取竞品素材</h4>
-      <p>用脚本自动爬取同赛道竞品的图片与视频，批量下载到本地</p>
-      <span class="tool-tag">Python · 自动化脚本</span>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-icon">🧠</div>
-      <h4>AI 反向提取提示词</h4>
-      <p>对每条素材调用视觉模型反问"这条内容用什么样的 prompt 能生成出来"，提取完整提示词，图片视频通用</p>
-      <span class="tool-tag">AI Vision · 图片视频通用</span>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-icon">📚</div>
-      <h4>沉淀知识库</h4>
-      <p>按风格、场景、动作类型分类归档，形成可复用的结构化提示词知识库</p>
-      <span class="tool-tag">CSV 结构化 · 可复用</span>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-icon">✨</div>
-      <h4>反哺自有内容</h4>
-      <p>基于知识库生成高质量 prompt，图片和视频效果拉齐竞品水平，不再是"AI 味儿"</p>
-      <span class="tool-tag">质量跃升 · 对齐竞品</span>
-    </div>
+    <div class="step"><div class="num">1</div><div class="icon">🕷️</div><h4>抓取竞品素材</h4><p>用脚本自动爬取同赛道竞品的图片与视频，批量下载到本地</p><span class="tag">Python · 自动化脚本</span></div>
+    <div class="step"><div class="num">2</div><div class="icon">🧠</div><h4>AI 反向提取提示词</h4><p>对每条素材调用视觉模型反问"这条内容用什么样的 prompt 能生成出来"，图片视频通用</p><span class="tag">AI Vision · 图片视频通用</span></div>
+    <div class="step"><div class="num">3</div><div class="icon">📚</div><h4>沉淀知识库</h4><p>按风格、场景、动作类型分类归档，形成可复用的结构化提示词知识库</p><span class="tag">CSV 结构化 · 可复用</span></div>
+    <div class="step"><div class="num">4</div><div class="icon">✨</div><h4>反哺自有内容</h4><p>基于知识库生成高质量 prompt，图片和视频效果拉齐竞品水平</p><span class="tag">质量跃升 · 对齐竞品</span></div>
   </div>
 </div>
 
-<!-- ====== 动态演示 ====== -->
-<div class="demo-section container">
+<div class="section container">
   <div class="demo-top">
     <h2>Skill <span>演示</span>：竞品逆向提取 → 反哺自有内容</h2>
     <button id="demoBtn" onclick="runDemo()">▶ 播放演示</button>
   </div>
-
   <div class="demo-timeline" id="demoTimeline">
     <div class="demo-step" id="step1"><div class="dot">🔗</div><div class="step-label">输入竞品 URL</div></div>
     <div class="demo-step" id="step2"><div class="dot">📥</div><div class="step-label">抓取素材</div></div>
     <div class="demo-step" id="step3"><div class="dot">🧠</div><div class="step-label">AI 提取提示词</div></div>
     <div class="demo-step" id="step4"><div class="dot">✨</div><div class="step-label">反哺自有内容</div></div>
   </div>
-
   <div class="demo-terminal" id="demoTerminal"></div>
-
   <div class="demo-compare" id="demoCompare">
     <div class="box old" id="boxOld">
       <div class="box-label">❌ 直接写提示词</div>
@@ -521,25 +234,14 @@
   </div>
 </div>
 
-<!-- ====== 作品网格 ====== -->
-<div class="container">
-  <div class="grid" id="grid"></div>
-</div>
+<div class="container"><div class="grid" id="grid"></div></div>
 
-<!-- ====== CTA ====== -->
 <div class="cta-block container">
   <h3>不只做内容，是建系统</h3>
-  <p>
-    运营用 AI 生图生视频是基本功，但直接生成的效果往往不够出彩——画面呆板、缺少吸引力。<br>
-    这套竞品逆向分析 Skill 解决的就是这个问题：自动抓竞品 → AI 提取提示词 → 沉淀知识库 → 反哺自有内容，<br>
-    图片和视频都通用，让 AI 产出从"能用"到"能打"。<br>
-    这就是我用 AI 能力给运营加的杠杆。
-  </p>
+  <p>运营用 AI 生图生视频是基本功，但直接生成的效果往往不够出彩——画面呆板、缺少吸引力。<br>这套竞品逆向分析 Skill 解决的就是这个问题：自动抓竞品 → AI 提取提示词 → 沉淀知识库 → 反哺自有内容，<br>图片和视频都通用，让 AI 产出从"能用"到"能打"。<br>这就是我用 AI 能力给运营加的杠杆。</p>
 </div>
 
-<footer>
-  <p>全部视频使用 <span>AI</span> 工具独立生成</p>
-</footer>
+<footer><p>全部视频使用 <span>AI</span> 工具独立生成</p></footer>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <button class="close" onclick="closeLightbox()">&times;</button>
@@ -549,11 +251,9 @@
 
 <script>
 const accents = ['accent-a','accent-b','accent-c','accent-d'];
-
-// ⚠️ 视频标题为临时占位，根据实际内容修正
 const videos = [
   { file:"jun23a.mp4",                             en:"Light Touch",  zh:"光影 + 动作 — 人物动态在光线变化中层层展开" },
-  { file:"jun23b.mp4",                      en:"Body Language",zh:"肢体叙事 — 不靠台词不靠场景，纯动作传递信息" },
+  { file:"jun23b.mp4",                             en:"Body Language",zh:"肢体叙事 — 不靠台词不靠场景，纯动作传递信息" },
   { file:"de70af1be9fc94b3703f52ad87bda42e.mp4",   en:"In Motion",    zh:"有声运动 — 动作节奏配合音效，画面与声音同步发力" },
   { file:"fc6f86a5-6d9f-4fc2-953b-0ab562b06a81.mp4",en:"Final Frame", zh:"定格收尾 — 动作结束的最后一帧，余味留在画面上" },
   { file:"0b83177a9a5fffc4d59db987bed538b7_raw.mp4", en:"Swift Turn",   zh:"转身即焦点 — 高速动作捕捉，一秒建立角色存在感" },
@@ -569,19 +269,16 @@ const videos = [
 function render() {
   document.getElementById('grid').innerHTML = videos.map((v,i) => {
     const accent = accents[i % accents.length];
-    return `
-      <div class="card ${accent}">
-        <div class="card-media" onclick="openLightbox('${v.file}','${v.en}')">
-          <video src="${v.file}" preload="metadata" muted playsinline
-            onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
-          <div class="overlay"><div class="play-btn">▶</div></div>
-        </div>
-        <div class="card-body">
-          <div class="title">${v.en}</div>
-          <div class="desc">${v.zh}</div>
-        </div>
+    return `<div class="card ${accent}">
+      <div class="card-media" onclick="openLightbox('${v.file}','${v.en}')">
+        <video src="${v.file}" preload="metadata" muted playsinline onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+        <div class="overlay"><div class="play-btn">▶</div></div>
       </div>
-    `;
+      <div class="card-body">
+        <div class="title">${v.en}</div>
+        <div class="desc">${v.zh}</div>
+      </div>
+    </div>`;
   }).join('');
 }
 
@@ -589,73 +286,50 @@ function openLightbox(src, title) {
   const lb = document.getElementById('lightbox');
   const vid = document.getElementById('lightboxVideo');
   document.getElementById('lbTitle').textContent = title;
-  vid.src = src;
-  lb.classList.add('show');
-  vid.play();
+  vid.src = src; lb.classList.add('show'); vid.play();
 }
-
 function closeLightbox(e) {
   if (e && e.target !== document.getElementById('lightbox') && e.target.tagName !== 'BUTTON') return;
   const lb = document.getElementById('lightbox');
   const vid = document.getElementById('lightboxVideo');
-  vid.pause(); vid.src = '';
-  document.getElementById('lbTitle').textContent = '';
+  vid.pause(); vid.src = ''; document.getElementById('lbTitle').textContent = '';
   lb.classList.remove('show');
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 render();
 
-// ===== Demo Animation =====
+// Demo
 let demoRunning = false;
-
 function resetDemo() {
-  for (let i = 1; i <= 4; i++) {
-    document.getElementById('step'+i).classList.remove('active','done');
-  }
-  document.getElementById('demoTerminal').innerHTML = '';
+  for(let i=1;i<=4;i++) document.getElementById('step'+i).classList.remove('active','done');
+  document.getElementById('demoTerminal').innerHTML='';
   document.getElementById('boxOld').classList.remove('show');
   document.getElementById('boxNew').classList.remove('show');
-  document.getElementById('boxNew').querySelector('.box-text').innerHTML = '';
+  document.getElementById('boxNew').querySelector('.box-text').innerHTML='';
 }
-
 async function runDemo() {
-  if (demoRunning) return;
-  demoRunning = true;
-  const btn = document.getElementById('demoBtn');
-  btn.textContent = '● 演示中…';
-  btn.classList.add('running');
+  if(demoRunning)return; demoRunning=true;
+  const btn=document.getElementById('demoBtn'); btn.textContent='● 演示中…'; btn.classList.add('running');
   resetDemo();
-
-  const term = document.getElementById('demoTerminal');
-  const type = (html, cls='') => {
-    const d = document.createElement('div');
-    d.className = 'line ' + cls;
-    d.innerHTML = html;
-    term.appendChild(d);
-    requestAnimationFrame(() => d.classList.add('show'));
-    return new Promise(r => setTimeout(r, 550));
+  const term=document.getElementById('demoTerminal');
+  const type=(html,cls='')=>{
+    const d=document.createElement('div'); d.className='line '+cls; d.innerHTML=html;
+    term.appendChild(d); requestAnimationFrame(()=>d.classList.add('show'));
+    return new Promise(r=>setTimeout(r,550));
   };
-  const wait = ms => new Promise(r => setTimeout(r, ms));
-
-  // Step 1
-  const s1 = document.getElementById('step1'); s1.classList.add('active');
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  const s1=document.getElementById('step1'); s1.classList.add('active');
   await type('<span class="prompt">$</span> <span class="cmd">scrape seedance2.io --type video</span>');
-  await wait(400);
-  s1.classList.remove('active'); s1.classList.add('done');
-
-  // Step 2
-  const s2 = document.getElementById('step2'); s2.classList.add('active');
+  await wait(400); s1.classList.remove('active'); s1.classList.add('done');
+  const s2=document.getElementById('step2'); s2.classList.add('active');
   await type('<span class="out">[1/24] 发现视频 → hero_banner.mp4</span>');
   await type('<span class="out">[2/24] 发现视频 → dance_demo.mp4</span>');
   await type('<span class="out">[3/24] 发现视频 → character_showcase.mp4</span>');
   await type('<span class="out">...</span>');
   await type('<span class="out">[24/24] 下载完成 → ./scraped_assets/</span>');
-  await wait(300);
-  s2.classList.remove('active'); s2.classList.add('done');
-
-  // Step 3
-  const s3 = document.getElementById('step3'); s3.classList.add('active');
+  await wait(300); s2.classList.remove('active'); s2.classList.add('done');
+  const s3=document.getElementById('step3'); s3.classList.add('active');
   await type('<span class="prompt">$</span> <span class="cmd">ai extract --prompt "描述画面内容 → 输出可复用的 AI 视频生成 prompt"</span>');
   await wait(600);
   await type('<span class="out">Analyzing frame 1/24 ...</span>');
@@ -669,31 +343,19 @@ async function runDemo() {
   await wait(400);
   await type('<span class="highlight">[DONE] 24 条提示词已归档至知识库 prompt_library.csv</span>');
   s3.classList.remove('active'); s3.classList.add('done');
-
-  // Step 4
-  const s4 = document.getElementById('step4'); s4.classList.add('active');
+  const s4=document.getElementById('step4'); s4.classList.add('active');
   await type('<span class="prompt">$</span> <span class="cmd">generate --seed prompt_library --style cinematic</span>');
   await wait(500);
   await type('<span class="highlight">[READY] 基于知识库生成优化提示词 ↓</span>');
-
-  // Show compare
   await wait(200);
   document.getElementById('boxOld').classList.add('show');
   await wait(500);
   document.getElementById('boxNew').classList.add('show');
-  document.getElementById('boxNew').querySelector('.box-text').innerHTML =
-    '"A elegant figure dancing in slow motion, flowing silk dress catching golden hour light, shallow depth of field with bokeh background, cinematic lens, soft warm color grade, 4K, photorealistic render"';
-
+  document.getElementById('boxNew').querySelector('.box-text').innerHTML='"A elegant figure dancing in slow motion, flowing silk dress catching golden hour light, shallow depth of field with bokeh background, cinematic lens, soft warm color grade, 4K, photorealistic render"';
   s4.classList.remove('active'); s4.classList.add('done');
-
-  btn.textContent = '↻ 重新播放';
-  btn.classList.remove('running');
-  demoRunning = false;
+  btn.textContent='↻ 重新播放'; btn.classList.remove('running'); demoRunning=false;
 }
-
-setTimeout(runDemo, 800);
+setTimeout(runDemo,800);
 </script>
-</script>
-
 </body>
 </html>
