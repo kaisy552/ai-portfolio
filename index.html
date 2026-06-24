@@ -29,8 +29,21 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.01em;
+    overflow-x: hidden;
   }
-  .container { max-width:1160px; margin:0 auto; padding:0 32px; }
+  /* Background orbs */
+  .bg-orb {
+    position: fixed; border-radius: 50%; filter: blur(120px); opacity: .12;
+    pointer-events: none; z-index: 0;
+  }
+  .bg-orb.orb1 { width:600px; height:600px; background: var(--accent); top:-200px; left:-150px; }
+  .bg-orb.orb2 { width:500px; height:500px; background: var(--accent2); bottom:-150px; right:-120px; }
+  .bg-orb.orb3 { width:400px; height:400px; background: var(--accent3); top:50%; left:50%; transform:translate(-50%,-50%); }
+  .container { max-width:1160px; margin:0 auto; padding:0 32px; position:relative; z-index:1; }
+
+  /* Reveal on scroll */
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .8s cubic-bezier(.25,.1,.25,1), transform .8s cubic-bezier(.25,.1,.25,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
 
   /* Header */
   header { padding:100px 0 56px; text-align:center; }
@@ -74,35 +87,59 @@
   @media(max-width:768px){ .steps{grid-template-columns:1fr 1fr;} }
   @media(max-width:440px){ .steps{grid-template-columns:1fr;} }
 
-  /* Grid */
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:28px; padding-bottom:100px; }
-  @media(max-width:440px){ .grid{grid-template-columns:1fr; gap:20px;} header h1{font-size:30px;} }
+  /* Grid — Bento */
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:280px;
+    gap:20px;
+    padding-bottom:120px;
+  }
+  .card.featured { grid-column:span 3; grid-row:span 2; }
+  .card.wide     { grid-column:span 3; grid-row:span 1; }
+  .card.tall     { grid-column:span 2; grid-row:span 2; }
+  .card.normal   { grid-column:span 2; grid-row:span 1; }
+  @media(max-width:900px){
+    .grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:240px; gap:14px;}
+    .card.featured,.card.wide{grid-column:span 2; grid-row:span 1;}
+    .card.tall{grid-column:span 1; grid-row:span 2;}
+    .card.normal{grid-column:span 1; grid-row:span 1;}
+  }
+  @media(max-width:440px){
+    .grid{grid-template-columns:1fr; grid-auto-rows:auto; gap:16px;}
+    .card.featured,.card.wide,.card.tall,.card.normal{grid-column:span 1; grid-row:span 1;}
+    header h1{font-size:30px;}
+  }
 
   /* Card */
   .card {
     background:var(--surface); border:1px solid var(--border); border-radius:var(--r);
     overflow:hidden; backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px);
-    transition: transform .4s cubic-bezier(.25,.1,.25,1), border-color .4s ease, box-shadow .4s ease;
+    transition: transform .5s cubic-bezier(.25,.1,.25,1), border-color .5s ease, box-shadow .5s ease;
+    display:flex; flex-direction:column;
   }
-  .card:hover { transform:translateY(-4px); border-color:rgba(255,255,255,.14); box-shadow:0 20px 60px rgba(0,0,0,.5); }
-  .card:focus-within { outline:2px solid var(--accent2); outline-offset:4px; border-radius:calc(var(--r) + 4px); }
+  .card:hover { transform:translateY(-4px); border-color:rgba(255,255,255,.16); box-shadow:0 24px 64px rgba(0,0,0,.5); }
+  .card:focus-within { outline:2px solid var(--accent2); outline-offset:4px; }
   .card.accent-a { border-top:2px solid var(--accent); }
   .card.accent-b { border-top:2px solid var(--accent2); }
   .card.accent-c { border-top:2px solid var(--accent3); }
   .card.accent-d { border-top:2px solid var(--accent4); }
-  .card-media { position:relative; aspect-ratio:16/9; overflow:hidden; background:#0a0a0a; cursor:pointer; }
+  .card-media { position:relative; flex:1; overflow:hidden; background:#0a0a0a; cursor:pointer; min-height:0; }
   .card-media video { width:100%; height:100%; object-fit:cover; display:block; background:#0a0a0a; }
   .card-media .overlay { position:absolute; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .35s ease; }
   .card-media:hover .overlay { opacity:1; }
   .play-btn {
-    width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,.1);
+    width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.1);
     backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
     border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center;
-    font-size:16px; color:#fff; transition:transform .3s ease, background .3s ease;
+    font-size:18px; color:#fff; transition:transform .35s ease, background .35s ease;
   }
+  .card.featured .play-btn { width:64px; height:64px; font-size:22px; }
   .card-media:hover .play-btn { transform:scale(1.08); background:rgba(255,255,255,.18); }
-  .card-body { padding:20px 22px 22px; }
+  .card-body { padding:18px 22px 20px; flex-shrink:0; }
+  .card.featured .card-body { padding:22px 26px 24px; }
   .card-body .title { font-size:15px; font-weight:600; margin-bottom:4px; letter-spacing:-0.01em; color:#fff; }
+  .card.featured .card-body .title { font-size:18px; }
   .card-body .desc { font-size:13px; color:var(--muted); line-height:1.5; }
 
   /* CTA */
@@ -188,6 +225,9 @@
 </style>
 </head>
 <body>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
 
 <header class="container">
   <h1>AI <span>Portfolio</span></h1>
@@ -252,24 +292,24 @@
 <script>
 const accents = ['accent-a','accent-b','accent-c','accent-d'];
 const videos = [
-  { file:"jun23a.mp4",                             en:"Light Touch",  zh:"光影 + 动作 — 人物动态在光线变化中层层展开" },
-  { file:"jun23b.mp4",                             en:"Body Language",zh:"肢体叙事 — 不靠台词不靠场景，纯动作传递信息" },
-  { file:"de70af1be9fc94b3703f52ad87bda42e.mp4",   en:"In Motion",    zh:"有声运动 — 动作节奏配合音效，画面与声音同步发力" },
-  { file:"fc6f86a5-6d9f-4fc2-953b-0ab562b06a81.mp4",en:"Final Frame", zh:"定格收尾 — 动作结束的最后一帧，余味留在画面上" },
-  { file:"0b83177a9a5fffc4d59db987bed538b7_raw.mp4", en:"Swift Turn",   zh:"转身即焦点 — 高速动作捕捉，一秒建立角色存在感" },
-  { file:"1cfdf648ef6d2cf5fc432c712ba50288.mp4",  en:"Eyes Locked",   zh:"眼神定住画面 — 不靠场景靠人物，微表情驱动情绪" },
-  { file:"3.mp4",                                   en:"Quick Strike", zh:"短爆发力 — 从静到动只在一帧之间，干脆利落" },
-  { file:"4.mp4",                                   en:"Flow State",   zh:"人物流动感 — 连续动作无缝衔接，节奏一气呵成" },
-  { file:"5.mp4",                                   en:"Head Turn",    zh:"回眸瞬间 — 一个动作讲一个故事，简洁但有张力" },
-  { file:"520322a34d46523e44150137575e835f.mp4",   en:"Close Up",     zh:"特写冲击 — 抛弃远景，把人物推到镜头最前面" },
-  { file:"6.mp4",                                   en:"On the Move",  zh:"动态驶入 — 车辆从静止到飞驰，镜头跟拍一气呵成" },
-  { file:"b66074b5f9566368cb0f6476d81a97b3.mp4",   en:"Underwater",   zh:"水下共游 — 人影与海豚并肩穿行，流动感与生命力并存" },
+  { file:"jun23a.mp4",                             en:"Light Touch",  zh:"光影 + 动作 — 人物动态在光线变化中层层展开", size:"featured" },
+  { file:"jun23b.mp4",                             en:"Body Language",zh:"肢体叙事 — 不靠台词不靠场景，纯动作传递信息", size:"wide" },
+  { file:"de70af1be9fc94b3703f52ad87bda42e.mp4",   en:"In Motion",    zh:"有声运动 — 动作节奏配合音效，画面与声音同步发力", size:"tall" },
+  { file:"fc6f86a5-6d9f-4fc2-953b-0ab562b06a81.mp4",en:"Final Frame", zh:"定格收尾 — 动作结束的最后一帧", size:"normal" },
+  { file:"0b83177a9a5fffc4d59db987bed538b7_raw.mp4", en:"Swift Turn",   zh:"转身即焦点 — 高速动作捕捉，一秒建立角色存在感", size:"normal" },
+  { file:"1cfdf648ef6d2cf5fc432c712ba50288.mp4",  en:"Eyes Locked",   zh:"眼神定住画面 — 不靠场景靠人物", size:"wide" },
+  { file:"3.mp4",                                   en:"Quick Strike", zh:"短爆发力 — 从静到动只在一帧之间", size:"normal" },
+  { file:"4.mp4",                                   en:"Flow State",   zh:"人物流动感 — 连续动作无缝衔接", size:"normal" },
+  { file:"5.mp4",                                   en:"Head Turn",    zh:"回眸瞬间 — 一个动作讲一个故事", size:"tall" },
+  { file:"520322a34d46523e44150137575e835f.mp4",   en:"Close Up",     zh:"特写冲击 — 把人物推到镜头最前面", size:"normal" },
+  { file:"6.mp4",                                   en:"On the Move",  zh:"动态驶入 — 车辆飞驰，镜头跟拍", size:"normal" },
+  { file:"b66074b5f9566368cb0f6476d81a97b3.mp4",   en:"Underwater",   zh:"水下共游 — 人影与海豚并肩穿行", size:"wide" },
 ];
 
 function render() {
   document.getElementById('grid').innerHTML = videos.map((v,i) => {
     const accent = accents[i % accents.length];
-    return `<div class="card ${accent}">
+    return `<div class="card ${v.size} ${accent} reveal" style="transition-delay:${i*80}ms">
       <div class="card-media" onclick="openLightbox('${v.file}','${v.en}')">
         <video src="${v.file}" preload="metadata" muted playsinline onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
         <div class="overlay"><div class="play-btn">▶</div></div>
@@ -280,6 +320,16 @@ function render() {
       </div>
     </div>`;
   }).join('');
+  // Trigger reveal on load
+  setTimeout(observeReveal, 100);
+}
+
+// Scroll reveal
+function observeReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold:0.15, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 function openLightbox(src, title) {
