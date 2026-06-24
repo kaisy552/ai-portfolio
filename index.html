@@ -106,8 +106,8 @@
   .card.accent-d { border-top:2px solid var(--accent4); }
   .card-media { position:relative; flex:1; overflow:hidden; cursor:pointer; min-height:0; aspect-ratio:16/9; }
   .card-media video { width:100%; height:100%; object-fit:cover; display:block; background:#0a0a0a; user-select:none; -webkit-user-select:none; }
-  .card-placeholder { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0a0a0f 0%, #151525 50%, #0a0a10 100%); transition:opacity .3s ease; }
-  .card-placeholder .ph-icon { font-size:34px; opacity:.25; }
+  .card-placeholder { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; background-color:#0a0a0f; background-size:cover; background-position:center; background-repeat:no-repeat; transition:opacity .3s ease; }
+  .card-placeholder .ph-icon { display:none; }
   .card-placeholder.hide { opacity:0; pointer-events:none; }
   .card-media .overlay { position:absolute; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .35s ease; z-index:3; }
   .card-media:hover .overlay { opacity:1; }
@@ -289,9 +289,10 @@ const videos = [
 function render() {
   document.getElementById('grid').innerHTML = videos.map((v,i) => {
     const accent = accents[i % accents.length];
+    const thumb = v.file.replace(/\.mp4$/, '.jpg');
     return `<div class="card ${accent} reveal" style="transition-delay:${i*60}ms">
       <div class="card-media" onclick="openLightbox('${v.file}','${v.en}')">
-        <div class="card-placeholder"><span class="ph-icon">▶</span></div>
+        <div class="card-placeholder" style="background-image:url('${thumb}');background-size:cover;background-position:center;"><span class="ph-icon" style="display:none">▶</span></div>
         <div class="overlay"><div class="play-btn">▶</div></div>
       </div>
       <div class="card-body">
