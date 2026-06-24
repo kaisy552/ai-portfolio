@@ -171,14 +171,28 @@
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    background: #000;
+    background: linear-gradient(135deg, #0d0d1a 0%, #16162e 50%, #0d0d1a 100%);
     cursor: pointer;
+  }
+  .card-media::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.03) 50%, transparent 100%);
+    animation: shimmer 2.5s infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
   .card-media video {
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
+    background: linear-gradient(135deg, #0d0d1a 0%, #12122a 50%, #0d0d1a 100%);
   }
+  .card-media video::-webkit-media-controls-panel { display: none; }
   .card-media .overlay {
     position: absolute; inset: 0;
     background: rgba(0,0,0,.5);
@@ -558,8 +572,8 @@ function render() {
     return `
       <div class="card ${accent}">
         <div class="card-media" onclick="openLightbox('${v.file}','${v.en}')">
-          <video src="${v.file}" preload="none" muted loading="lazy"
-            playsinline onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
+          <video src="${v.file}" preload="metadata" muted playsinline
+            onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>
           <div class="overlay"><div class="play-btn">▶</div></div>
         </div>
         <div class="card-body">
